@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 
 type SkillSectionProps = {
   title: string;
@@ -97,11 +99,27 @@ function SkillSection({ title, items }: SkillSectionProps) {
 }
 
 export default function Portfolio() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const menuItems = [
+    { name: "Skills", href: "#skills" },
+    { name: "Projects", href: "#web" },
+    { name: "Experience", href: "#projects" },
+    { name: "GitHub", href: "https://github.com/pdroid908", target: "_blank" },
+    {
+      name: "WhatsApp",
+      href: "https://wa.me/6281328343908",
+      target: "_blank",
+      color: "green",
+    },
+    { name: "Email", href: "mailto:p1998nr@gmail.com", color: "cyan" },
+  ];
+
   return (
     <main className="min-h-screen bg-[#0f172a] text-white">
       <header className="sticky top-0 z-50 border-b border-white/10 bg-black/60 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-          {/* Left - Name / Brand */}
+          {/* Brand */}
           <div className="flex flex-col leading-tight">
             <span className="text-sm font-bold text-white sm:text-base">
               PUTRA ROHMAN
@@ -111,61 +129,63 @@ export default function Portfolio() {
             </span>
           </div>
 
-          {/* Right - Contact */}
-          <div className="flex items-center gap-2 sm:gap-3 flex-wrap justify-end">
-            <a
-              href="#skills"
-              className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] text-white/90 transition
-    hover:bg-white/10 hover:border-white/30 hover:text-white sm:px-4 sm:py-2 sm:text-sm"
-            >
-              Skills
-            </a>
+          {/* Mobile Hamburger Button */}
+          <button
+            className="sm:hidden p-2 text-white flex flex-col justify-center items-center w-10 h-10"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <div
+              className={`w-6 h-0.5 bg-white transition-all duration-300 ease-out ${isOpen ? "rotate-45 translate-y-[5px]" : "-translate-y-[5px]"}`}
+            />
+            <div
+              className={`w-6 h-0.5 bg-white transition-all duration-300 ease-out ${isOpen ? "opacity-0" : "opacity-100"}`}
+            />
+            <div
+              className={`w-6 h-0.5 bg-white transition-all duration-300 ease-out ${isOpen ? "-rotate-45 -translate-y-[5px]" : "translate-y-[5px]"}`}
+            />
+          </button>
 
-            <a
-              href="#web"
-              className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] text-white/90 transition
-    hover:bg-white/10 hover:border-white/30 hover:text-white sm:px-4 sm:py-2 sm:text-sm"
-            >
-              Projects
-            </a>
-
-            <a
-              href="#projects"
-              className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] text-white/90 transition
-    hover:bg-white/10 hover:border-white/30 hover:text-white sm:px-4 sm:py-2 sm:text-sm"
-            >
-              Experience
-            </a>
-
-            <a
-              href="https://github.com/pdroid908"
-              target="_blank"
-              className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] text-white/90 transition
-    hover:bg-white/10 hover:border-white/30 hover:text-white sm:px-4 sm:py-2 sm:text-sm"
-            >
-              GitHub
-            </a>
-
-            {/* WhatsApp */}
-            <a
-              href="https://wa.me/6281328343908"
-              target="_blank"
-              className="rounded-full border border-green-400/30 bg-green-500/15 px-3 py-1 text-[11px] font-medium text-green-300
-    transition hover:bg-green-500/25 hover:border-green-400/50 hover:text-green-200 sm:px-4 sm:py-2 sm:text-sm"
-            >
-              WhatsApp
-            </a>
-
-            {/* Email */}
-            <a
-              href="mailto:p1998nr@gmail.com"
-              className="rounded-full border border-cyan-400/30 bg-cyan-500/15 px-3 py-1 text-[11px] font-medium text-cyan-300
-    transition hover:bg-cyan-500/25 hover:border-cyan-400/50 hover:text-cyan-200 sm:px-4 sm:py-2 sm:text-sm"
-            >
-              Email
-            </a>
+          {/* Desktop Navigation */}
+          <div className="hidden sm:flex items-center gap-2 flex-wrap justify-end">
+            {menuItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                target={item.target}
+                className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/90 transition hover:bg-white/10"
+              >
+                {item.name}
+              </a>
+            ))}
           </div>
         </div>
+
+        {/* Mobile Menu Panel */}
+        {isOpen && (
+          <div className="sm:hidden border-t border-white/10 bg-black/90 p-3 animate-in slide-in-from-top-4">
+            <div className="grid grid-cols-2 gap-2">
+              {" "}
+              {/* Menggunakan grid agar muat lebih banyak */}
+              {menuItems.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  target={item.target}
+                  onClick={() => setIsOpen(false)}
+                  className={`text-[10px] font-medium text-center py-2 px-2 rounded-lg border truncate ${
+                    item.color === "green"
+                      ? "border-green-500/30 bg-green-500/10 text-green-200"
+                      : item.color === "cyan"
+                        ? "border-cyan-500/30 bg-cyan-500/10 text-cyan-200"
+                        : "border-white/10 bg-white/5 text-white/80"
+                  }`}
+                >
+                  {item.name}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
       </header>
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-20">
         {/* Hero */}
@@ -215,7 +235,7 @@ export default function Portfolio() {
         </section>
 
         {/* Skills */}
-        <section id="skils" className="mb-12 sm:mb-16 lg:mb-24">
+        <section id="skills" className="mb-12 sm:mb-16 lg:mb-24">
           <div className="mb-7 sm:mb-10">
             <p className="text-[10px] uppercase tracking-[0.3em] text-cyan-400 sm:text-xs">
               Technical Skills
