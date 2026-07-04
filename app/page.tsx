@@ -75,7 +75,7 @@ const deployments = [
   {
     name: "Google OAuth System",
     route: "/oauth",
-    href: "https://oauth-go-backend-one.vercel.app",
+    href: "https://oauth-go-backend-one.vercel.app/auth/google",
     desc: "Secure authentication system using Google OAuth2 and JWT.",
   },
   {
@@ -154,7 +154,7 @@ export default function Portfolio() {
   return (
     <main
       id="top"
-      className="min-h-screen bg-[#0a0b0d] text-zinc-100 selection:bg-amber-400/30 selection:text-white"
+      className="min-h-screen bg-[#0f1115] text-zinc-100 selection:bg-amber-400/30 selection:text-white"
     >
 
       <style>{`
@@ -332,7 +332,7 @@ export default function Portfolio() {
           </div>
 
           {/* terminal / API-response panel */}
-          <div className="overflow-hidden rounded-xl border border-white/10 bg-[#0d0f13] shadow-2xl">
+          <div className="overflow-hidden rounded-xl border border-white/10 bg-[#16181d] shadow-2xl">
             <div className="flex items-center gap-1.5 border-b border-white/10 bg-white/[0.03] px-4 py-2.5">
               <span className="h-2.5 w-2.5 rounded-full bg-red-500/70" />
               <span className="h-2.5 w-2.5 rounded-full bg-amber-400/70" />

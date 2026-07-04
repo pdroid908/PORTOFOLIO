@@ -3,7 +3,6 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, useDragControls } from 'framer-motion';
 
 export default function ChatWidget() {
-  const constraintsRef = useRef(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [messages, setMessages] = useState<{ role: 'user' | 'ai', text: string }[]>([
     { role: 'ai', text: "Hi! I'm Putra AI. How can I help you today?" }
