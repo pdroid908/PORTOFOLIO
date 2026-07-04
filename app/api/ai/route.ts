@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { sanitizeText } from "@/app/middleware/sanitize/sanitize";
+
 export const runtime = 'edge'
+
+
 const apiKey = process.env.GEMINI_API_KEY;
 
 if (!apiKey) {
@@ -11,7 +15,8 @@ const genAI = new GoogleGenerativeAI(apiKey);
 
 export async function POST(req: NextRequest) {
   try {
-    const { message } = await req.json();
+    const body = await req.json();
+    const message = sanitizeText(body.message)
 
     if (!message) {
       return NextResponse.json(
