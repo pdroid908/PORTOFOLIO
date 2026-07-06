@@ -26,7 +26,14 @@ const statusFeed = [
 
 const skills = {
   languages: ["Go", "TypeScript", "JavaScript", "Python", "SQL"],
-  backend: ["Gin", "REST APIs", "JWT / OAuth2", "RBAC", "Middleware", "Clean Architecture"],
+  backend: [
+    "Gin",
+    "REST APIs",
+    "JWT / OAuth2",
+    "RBAC",
+    "Middleware",
+    "Clean Architecture",
+  ],
   frontend: ["React", "Next.js", "Tailwind CSS", "Redux"],
   database: ["PostgreSQL", "Redis", "MongoDB"],
   tools: ["Docker", "Git", "Nginx", "Postman", "Linux", "CI/CD"],
@@ -92,7 +99,7 @@ const deployments = [
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <p className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.35em] text-amber-400">
+    <p className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.35em] text-sky-600">
       {children}
     </p>
   );
@@ -109,16 +116,20 @@ function SkillGroup({
 }) {
   const accentClasses =
     accent === "amber"
-      ? { border: "border-amber-400/40", dot: "bg-amber-400", text: "text-amber-300" }
-      : { border: "border-emerald-400/40", dot: "bg-emerald-400", text: "text-emerald-300" };
+      ? { border: "border-sky-400/40", dot: "bg-sky-500", text: "text-sky-600" }
+      : {
+          border: "border-emerald-500/30",
+          dot: "bg-emerald-500",
+          text: "text-emerald-600",
+        };
 
   return (
     <div
-      className={`rounded-none border-l-2 ${accentClasses.border} bg-white/[0.02] pl-4 py-4 sm:pl-5 sm:py-5`}
+      className={`rounded-2xl border ${accentClasses.border} bg-white/80 p-4 shadow-[0_10px_40px_-20px_rgba(15,23,42,0.25)] sm:p-5`}
     >
       <div className="flex items-center gap-2">
         <span className={`h-1.5 w-1.5 ${accentClasses.dot}`} />
-        <h3 className="font-mono text-[11px] sm:text-xs uppercase tracking-[0.2em] text-zinc-400">
+        <h3 className="font-mono text-[11px] sm:text-xs uppercase tracking-[0.2em] text-slate-900">
           {title}
         </h3>
       </div>
@@ -126,7 +137,7 @@ function SkillGroup({
         {items.map((item) => (
           <span
             key={item}
-            className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] sm:text-xs text-zinc-200"
+            className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-[11px] text-slate-900 sm:text-xs"
           >
             {item}
           </span>
@@ -154,9 +165,8 @@ export default function Portfolio() {
   return (
     <main
       id="top"
-      className="min-h-screen bg-[#0f1115] text-zinc-100 selection:bg-amber-400/30 selection:text-white"
+      className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(14,165,233,0.10),_transparent_32%),linear-gradient(135deg,_#f8fafc_0%,_#f2f6fb_45%,_#eef3f8_100%)] text-slate-800 selection:bg-sky-500/25 selection:text-slate-900"
     >
-
       <style>{`
         :root { --font-display: 'Space Grotesk', sans-serif; }
         .font-display { font-family: var(--font-display); }
@@ -165,8 +175,8 @@ export default function Portfolio() {
         .marquee-track { animation: marquee 28s linear infinite; }
         .bg-grid {
           background-image:
-            linear-gradient(to right, rgba(255,255,255,0.035) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(255,255,255,0.035) 1px, transparent 1px);
+            linear-gradient(to right, rgba(15, 23, 42, 0.055) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(15, 23, 42, 0.055) 1px, transparent 1px);
           background-size: 44px 44px;
         }
         @media (prefers-reduced-motion: reduce) {
@@ -175,7 +185,6 @@ export default function Portfolio() {
         }
       `}</style>
 
-      {/* ambient blueprint grid, quiet and static (no glow blobs) */}
       <div className="pointer-events-none fixed inset-0 z-0 bg-grid [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,black,transparent)]" />
 
       {/* ---------------------------------------------------------- */}
@@ -184,16 +193,16 @@ export default function Portfolio() {
       <header
         className={`sticky top-0 z-50 border-b transition-colors duration-300 ${
           scrolled
-            ? "border-white/10 bg-[#0a0b0d]/95 backdrop-blur-xl shadow-[0_1px_0_0_rgba(0,0,0,0.4)]"
-            : "border-white/5 bg-[#0a0b0d]/70 backdrop-blur-md"
+            ? "border-slate-200/80 bg-white/90 backdrop-blur-xl shadow-[0_10px_40px_-24px_rgba(15,23,42,0.35)]"
+            : "border-slate-200/70 bg-white/70 backdrop-blur-md"
         }`}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3.5 sm:px-6 lg:px-8">
           <a href="#top" className="flex flex-col leading-tight">
-            <span className="font-display text-sm font-bold tracking-tight text-white sm:text-base">
-              PUTRA ROHMAN
+            <span className="font-display text-sm font-bold tracking-tight text-slate-900 sm:text-base">
+              PUTRA NUR ROHMAN
             </span>
-            <span className="font-mono text-[10px] text-zinc-500 sm:text-xs">
+            <span className="font-mono text-[10px] text-slate-500 sm:text-xs">
               full_stack_developer.go
             </span>
           </a>
@@ -204,7 +213,7 @@ export default function Portfolio() {
                 key={item.name}
                 href={item.href}
                 target={item.href.startsWith("mailto") ? undefined : undefined}
-                className="rounded-full px-3.5 py-1.5 font-mono text-xs text-zinc-400 transition hover:bg-white/5 hover:text-amber-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-amber-400"
+                className="rounded-full px-3.5 py-1.5 font-mono text-xs text-slate-600 transition hover:bg-slate-100 hover:text-sky-700 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-500"
               >
                 {item.name}
               </a>
@@ -219,17 +228,17 @@ export default function Portfolio() {
           >
             <div className="flex w-5 flex-col gap-[5px]">
               <span
-                className={`h-[1.5px] bg-white transition-all duration-300 ${
+                className={`h-[1.5px] bg-slate-800 transition-all duration-300 ${
                   isOpen ? "translate-y-[6.5px] rotate-45" : ""
                 }`}
               />
               <span
-                className={`h-[1.5px] bg-white transition-all duration-300 ${
+                className={`h-[1.5px] bg-slate-800 transition-all duration-300 ${
                   isOpen ? "opacity-0" : "opacity-100"
                 }`}
               />
               <span
-                className={`h-[1.5px] bg-white transition-all duration-300 ${
+                className={`h-[1.5px] bg-slate-800 transition-all duration-300 ${
                   isOpen ? "-translate-y-[6.5px] -rotate-45" : ""
                 }`}
               />
@@ -237,9 +246,8 @@ export default function Portfolio() {
           </button>
         </div>
 
-        {/* mobile panel */}
         <div
-          className={`sm:hidden overflow-hidden border-t border-white/10 bg-[#0a0b0d]/98 transition-[max-height] duration-300 ${
+          className={`sm:hidden overflow-hidden border-t border-slate-200 bg-white/95 transition-[max-height] duration-300 ${
             isOpen ? "max-h-80" : "max-h-0 border-t-0"
           }`}
         >
@@ -249,7 +257,7 @@ export default function Portfolio() {
                 key={item.name}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="border-l-2 border-transparent px-4 py-3 font-mono text-sm text-zinc-300 hover:border-amber-400 hover:bg-white/5 hover:text-white"
+                className="border-l-2 border-transparent px-4 py-3 font-mono text-sm text-slate-700 hover:border-sky-500 hover:bg-slate-50 hover:text-slate-900"
               >
                 {item.name}
               </a>
@@ -257,16 +265,15 @@ export default function Portfolio() {
           </div>
         </div>
 
-        {/* status ticker */}
-        <div className="hidden border-t border-white/5 bg-white/[0.02] sm:block">
+        <div className="hidden border-t border-slate-200/80 bg-slate-50/70 sm:block">
           <div className="mx-auto flex max-w-7xl overflow-hidden px-4 py-1.5 sm:px-6 lg:px-8">
             <div className="flex whitespace-nowrap marquee-track">
               {[...statusFeed, ...statusFeed].map((s, i) => (
                 <span
                   key={i}
-                  className="mx-4 flex items-center gap-2 font-mono text-[10px] tracking-wider text-zinc-500"
+                  className="mx-4 flex items-center gap-2 font-mono text-[10px] tracking-wider text-slate-500"
                 >
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                   {s}
                 </span>
               ))}
@@ -279,32 +286,33 @@ export default function Portfolio() {
         {/* ------------------------------------------------------ */}
         {/* Hero                                                    */}
         {/* ------------------------------------------------------ */}
-        <section className="mb-16 grid gap-10 sm:mb-24 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
+        <section className="mb-16 grid gap-10 sm:mb-24 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
           <div>
-            <Eyebrow>Full Stack Developer — Backend &amp; Auth Systems</Eyebrow>
+            <Eyebrow>
+              Full Stack Developer — Backend &amp; Enterprise Systems
+            </Eyebrow>
 
-            <h1 className="font-display mt-3 text-4xl font-bold leading-[1.02] tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Putra Rohman
+            <h1 className="font-display mt-3 text-4xl font-bold leading-[1.02] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+              Putra NUR Rohman
             </h1>
 
-            <p className="mt-5 max-w-xl text-sm leading-6 text-zinc-400 sm:mt-6 sm:text-base sm:leading-7">
-              I build enterprise authentication and backend architecture with{" "}
-              <span className="text-zinc-200">Go, Gin, PostgreSQL and Next.js</span>. Production
-              systems featuring JWT access &amp; refresh tokens, HTTP-only cookie sessions, Google
-              OAuth, RBAC, security headers and middleware-based authorization — all following
-              Clean Architecture principles.
-            </p>
+            <p className="mt-5 max-w-xl text-sm leading-7 text-slate-800 sm:mt-6 sm:text-base">
+  Im a Backend Developer focused on building secure, scalable, and
+  high-performance applications. I specialize in Go, TypeScript, Next.js,
+  PostgreSQL, Redis, and Docker, creating reliable REST APIs and backend
+  systems with clean architecture and production-ready practices.
+</p>
 
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href="#projects"
-                className="rounded-full bg-amber-400 px-5 py-2.5 font-mono text-xs font-medium text-black transition hover:bg-amber-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/60"
+                className="rounded-full bg-slate-950 px-5 py-2.5 font-mono text-xs font-medium text-white transition hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/60"
               >
                 View projects →
               </a>
               <a
                 href="https://wa.me/6281328343908"
-                className="rounded-full border border-white/15 px-5 py-2.5 font-mono text-xs text-zinc-300 transition hover:border-white/30 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                className="rounded-full border border-slate-300 bg-white/70 px-5 py-2.5 font-mono text-xs text-slate-700 transition hover:border-slate-400 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300"
               >
                 Get in touch (WA)
               </a>
@@ -318,12 +326,12 @@ export default function Portfolio() {
               ].map(([value, label]) => (
                 <div
                   key={label}
-                  className="border-t border-white/10 pt-3 sm:pt-4"
+                  className="border-t border-slate-200 pt-3 sm:pt-4"
                 >
-                  <div className="font-display text-xl font-bold text-white sm:text-2xl">
+                  <div className="font-display text-xl font-bold text-slate-900 sm:text-2xl">
                     {value}
                   </div>
-                  <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-zinc-500 sm:text-[11px]">
+                  <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-slate-500 sm:text-[11px]">
                     {label}
                   </div>
                 </div>
@@ -331,27 +339,62 @@ export default function Portfolio() {
             </div>
           </div>
 
-          {/* terminal / API-response panel */}
-          <div className="overflow-hidden rounded-xl border border-white/10 bg-[#16181d] shadow-2xl">
-            <div className="flex items-center gap-1.5 border-b border-white/10 bg-white/[0.03] px-4 py-2.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-red-500/70" />
-              <span className="h-2.5 w-2.5 rounded-full bg-amber-400/70" />
-              <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/70" />
-              <span className="ml-3 font-mono text-[11px] text-zinc-500">
+          <div className="overflow-hidden rounded-[24px] border border-slate-200 bg-white/85 shadow-[0_30px_90px_-30px_rgba(15,23,42,0.3)] backdrop-blur">
+            <div className="flex items-center gap-1.5 border-b border-slate-200 bg-slate-50/90 px-4 py-2.5">
+              <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
+              <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
+              <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/80" />
+              <span className="ml-3 font-mono text-[11px] text-slate-500">
                 GET /api/v1/profile
               </span>
             </div>
-            <pre className="overflow-x-auto p-5 font-mono text-[12px] leading-6 text-zinc-300 sm:text-[13px]">
-{`{
-  `}<span className="text-amber-300">{'"name"'}</span>{`: `}<span className="text-emerald-300">{'"Putra Rohman"'}</span>{`,
-  `}<span className="text-amber-300">{'"role"'}</span>{`: `}<span className="text-emerald-300">{'"Full Stack Developer"'}</span>{`,
-  `}<span className="text-amber-300">{'"focus"'}</span>{`: [`}<span className="text-emerald-300">{'"auth"'}</span>{`, `}<span className="text-emerald-300">{'"backend"'}</span>{`, `}<span className="text-emerald-300">{'"apis"'}</span>{`],
-  `}<span className="text-amber-300">{'"stack"'}</span>{`: {
-    `}<span className="text-amber-300">{'"backend"'}</span>{`: `}<span className="text-emerald-300">{'"Go / Gin"'}</span>{`,
-    `}<span className="text-amber-300">{'"database"'}</span>{`: `}<span className="text-emerald-300">{'"PostgreSQL"'}</span>{`,
-    `}<span className="text-amber-300">{'"frontend"'}</span>{`: `}<span className="text-emerald-300">{'"Next.js"'}</span>{`
+            <pre className="overflow-x-auto p-5 font-mono text-[12px] leading-6 text-slate-700 sm:text-[13px]">
+              {`{
+  `}
+              <span className="text-sky-700">{'"name"'}</span>
+              {`: `}
+              <span className="text-emerald-700">{'"Putra Rohman"'}</span>
+              {`,
+  `}
+              <span className="text-sky-700">{'"role"'}</span>
+              {`: `}
+              <span className="text-emerald-700">
+                {'"Full Stack Developer"'}
+              </span>
+              {`,
+  `}
+              <span className="text-sky-700">{'"focus"'}</span>
+              {`: [`}
+              <span className="text-emerald-700">{'"auth"'}</span>
+              {`, `}
+              <span className="text-emerald-700">{'"backend"'}</span>
+              {`, `}
+              <span className="text-emerald-700">{'"apis"'}</span>
+              {`],
+  `}
+              <span className="text-sky-700">{'"stack"'}</span>
+              {`: {
+    `}
+              <span className="text-sky-700">{'"backend"'}</span>
+              {`: `}
+              <span className="text-emerald-700">{'"Go / Gin"'}</span>
+              {`,
+    `}
+              <span className="text-sky-700">{'"database"'}</span>
+              {`: `}
+              <span className="text-emerald-700">{'"PostgreSQL"'}</span>
+              {`,
+    `}
+              <span className="text-sky-700">{'"frontend"'}</span>
+              {`: `}
+              <span className="text-emerald-700">{'"Next.js"'}</span>
+              {`
   },
-  `}<span className="text-amber-300">{'"status"'}</span>{`: `}<span className="text-emerald-300">{'"available_for_work"'}</span>{`
+  `}
+              <span className="text-sky-700">{'"status"'}</span>
+              {`: `}
+              <span className="text-emerald-700">{'"available_for_work"'}</span>
+              {`
 }`}
             </pre>
           </div>
@@ -363,18 +406,34 @@ export default function Portfolio() {
         <section id="skills" className="mb-16 sm:mb-24 scroll-mt-24">
           <div className="mb-8 sm:mb-10">
             <Eyebrow>Technical Skills</Eyebrow>
-            <h2 className="font-display mt-2 text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
+            <h2 className="font-display mt-2 text-2xl font-bold text-slate-900 sm:text-3xl lg:text-4xl">
               Technology Stack
             </h2>
           </div>
 
-          <div className="grid gap-3 sm:gap-4 md:grid-cols-2 lg:gap-5">
-            <SkillGroup title="Languages" items={skills.languages} accent="amber" />
+          <div className="grid gap-3 sm:gap-4 c md:grid-cols-2 lg:gap-5">
+            <SkillGroup
+              title="Languages"
+              items={skills.languages}
+              accent="amber"
+            />
             <SkillGroup title="Backend" items={skills.backend} accent="amber" />
-            <SkillGroup title="Frontend" items={skills.frontend} accent="emerald" />
-            <SkillGroup title="Database" items={skills.database} accent="emerald" />
+            <SkillGroup
+              title="Frontend"
+              items={skills.frontend}
+              accent="emerald"
+            />
+            <SkillGroup
+              title="Database"
+              items={skills.database}
+              accent="emerald"
+            />
             <div className="md:col-span-2">
-              <SkillGroup title="Development Tools" items={skills.tools} accent="emerald" />
+              <SkillGroup
+                title="Development Tools"
+                items={skills.tools}
+                accent="emerald"
+              />
             </div>
           </div>
         </section>
@@ -385,7 +444,7 @@ export default function Portfolio() {
         <section id="projects" className="mb-16 sm:mb-24 scroll-mt-24">
           <div className="mb-8 sm:mb-10">
             <Eyebrow>Featured Projects</Eyebrow>
-            <h2 className="font-display mt-2 text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
+            <h2 className="font-display mt-2 text-2xl font-bold text-slate-900 sm:text-3xl lg:text-4xl">
               Enterprise Development Experience
             </h2>
           </div>
@@ -394,21 +453,21 @@ export default function Portfolio() {
             {projects.map((project) => (
               <div
                 key={project.title}
-                className="group rounded-lg border border-white/10 bg-white/[0.02] p-5 transition hover:border-amber-400/30 hover:bg-white/[0.04] sm:p-6 lg:p-7"
+                className="group rounded-2xl border border-slate-200 bg-white/80 p-5 shadow-[0_10px_40px_-24px_rgba(15,23,42,0.25)] transition hover:-translate-y-0.5 hover:border-sky-400/50 hover:shadow-[0_16px_50px_-20px_rgba(14,165,233,0.25)] sm:p-6 lg:p-7"
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <h3 className="font-display text-lg font-bold text-white sm:text-xl">
+                  <h3 className="font-display text-lg font-bold text-slate-900 sm:text-xl">
                     {project.title}
                   </h3>
-                  <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-emerald-300">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                  <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-emerald-700">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                     {project.status}
                   </span>
                 </div>
-                <p className="mt-2 font-mono text-[11px] text-amber-300/90 sm:text-xs">
+                <p className="mt-2 font-mono text-[11px] text-sky-700 sm:text-xs">
                   {project.stack}
                 </p>
-                <p className="mt-4 text-sm leading-6 text-zinc-400 sm:text-base sm:leading-7">
+                <p className="mt-4 text-sm leading-6 text-slate-600 sm:text-base sm:leading-7">
                   {project.desc}
                 </p>
               </div>
@@ -422,7 +481,7 @@ export default function Portfolio() {
         <section id="web" className="scroll-mt-24">
           <div className="mb-8 sm:mb-10">
             <Eyebrow>Live Deployments</Eyebrow>
-            <h2 className="font-display mt-2 text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
+            <h2 className="font-display mt-2 text-2xl font-bold text-slate-900 sm:text-3xl lg:text-4xl">
               Click Through &amp; Check
             </h2>
           </div>
@@ -434,16 +493,20 @@ export default function Portfolio() {
                 href={d.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group rounded-lg border border-white/10 bg-white/[0.02] p-5 transition hover:border-amber-400/40 hover:bg-white/[0.04] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-amber-400"
+                className="group rounded-2xl border border-slate-200 bg-white/80 p-5 shadow-[0_10px_40px_-24px_rgba(15,23,42,0.25)] transition hover:-translate-y-0.5 hover:border-sky-400/50 hover:shadow-[0_14px_45px_-22px_rgba(14,165,233,0.25)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-500"
               >
                 <div className="flex items-center justify-between">
-                  <h3 className="font-display text-base font-semibold text-white group-hover:text-amber-300">
+                  <h3 className="font-display text-base font-semibold text-slate-900 group-hover:text-sky-700">
                     {d.name}
                   </h3>
-                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
+                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
                 </div>
-                <p className="mt-1 font-mono text-[11px] text-zinc-500">{d.route}</p>
-                <p className="mt-3 text-sm leading-6 text-zinc-400">{d.desc}</p>
+                <p className="mt-1 font-mono text-[11px] text-slate-500">
+                  {d.route}
+                </p>
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  {d.desc}
+                </p>
               </a>
             ))}
           </div>
@@ -452,18 +515,31 @@ export default function Portfolio() {
         {/* ------------------------------------------------------ */}
         {/* Footer                                                  */}
         {/* ------------------------------------------------------ */}
-        <footer className="mt-20 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-6 sm:mt-28 sm:flex-row sm:items-center">
-          <span className="font-mono text-[11px] text-zinc-600">
-            © {new Date().getFullYear()} Putra Rohman — built with Go &amp; Next.js
-          </span>
-          <div className="flex gap-4 font-mono text-[11px] text-zinc-500">
-            <a href="mailto:contact@putrarohman.dev" className="hover:text-amber-300">
+        <footer className="mt-20 flex flex-col items-start justify-between gap-4 border-t border-slate-200 pt-6 sm:mt-28 sm:flex-row sm:items-center">
+          
+          <div className="flex gap-4 font-mono text-xl text-slate-500">
+            <a
+              href="mailto:contact@putrarohman.dev"
+              className="hover:text-sky-700"
+            >
               Email
             </a>
-            <a href="https://github.com/pdroid908" target="_blank" rel="noopener noreferrer" className="hover:text-amber-300">
+            <a
+              href="https://github.com/pdroid908"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-sky-700"
+            >
               GitHub
             </a>
           </div>
+          
+          
+          <span className="font-mono text-[11px] text-slate-500">
+            © {new Date().getFullYear()} Putra Rohman — built with Go &amp;
+            Next.js
+          </span>
+          
         </footer>
       </div>
     </main>

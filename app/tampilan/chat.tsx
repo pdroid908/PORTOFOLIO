@@ -1,125 +1,229 @@
 'use client';
+
 import { useState, useRef, useEffect } from 'react';
-import { motion, useDragControls } from 'framer-motion';
+import { motion, AnimatePresence, useDragControls } from 'framer-motion';
+import { MessageCircle, X } from 'lucide-react';
 
 export default function ChatWidget() {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [messages, setMessages] = useState<{ role: 'user' | 'ai', text: string }[]>([
-    { role: 'ai', text: "Hi! I'm Putra AI. How can I help you today?" }
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [messages, setMessages] = useState<
+    { role: 'user' | 'ai'; text: string }[]
+  >([
+    {
+      role: 'ai',
+      text: "Hi! I'm Putra AI. How can I help you today?",
+    },
   ]);
+
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
   const scrollRef = useRef<HTMLDivElement>(null);
-  
-  // Kontrol untuk drag agar hanya bisa digeser lewat header
+
   const dragControls = useDragControls();
 
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [messages]);
+    scrollRef.current?.scrollTo({
+      top: scrollRef.current.scrollHeight,
+      behavior: 'smooth',
+    });
+  }, [messages, isLoading]);
 
-  const handleSendMessage = async (e?: React.FormEvent) => {
+  async function handleSendMessage(e?: React.FormEvent) {
     e?.preventDefault();
+
     if (!input.trim() || isLoading) return;
 
-    const userMessage = input;
+    const text = input;
+
     setInput('');
-    setMessages(prev => [...prev, { role: 'user', text: userMessage }]);
+
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: 'user',
+        text,
+      },
+    ]);
+
     setIsLoading(true);
 
     try {
       const response = await fetch('/api/ai', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMessage }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: text,
+        }),
       });
+
       const data = await response.json();
-      setMessages(prev => [...prev, { role: 'ai', text: data.reply || "Maaf, error server." }]);
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: 'ai',
+          text: data.reply ?? 'Server Error.',
+        },
+      ]);
     } catch {
-      setMessages(prev => [...prev, { role: 'ai', text: "Gagal terhubung." }]);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: 'ai',
+          text: 'Failed to connect.',
+        },
+      ]);
     } finally {
       setIsLoading(false);
     }
-  };
+  }
 
   return (
-    <div  className="fixed bottom-6 right-6 z-[9999] flex flex-col items-end">
-      {/* Chat Window */}
-      {isOpen && (
-        <motion.div
-          drag
-          dragListener={false} // Menonaktifkan drag otomatis agar bisa dikustomisasi
-          dragControls={dragControls}
-          dragConstraints={{ left: -300, right: 100, top: -400, bottom: 100 }} // Batasan area geser
-          className="mb-4 w-96 h-[500px] bg-slate-900/90 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl shadow-cyan-900/20 flex flex-col overflow-hidden"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-        >
-          {/* Header (Drag Area) */}
-          <div 
-            onPointerDown={(e) => dragControls.start(e)}
-            className="p-4 border-b border-white/5 bg-white/5 flex justify-between items-center cursor-grab active:cursor-grabbing"
+    <>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            drag
+            dragControls={dragControls}
+            dragListener={false}
+            dragMomentum={false}
+            dragElastic={0.08}
+            whileDrag={{
+              scale: 1.02,
+            }}
+            initial={{
+              opacity: 0,
+              scale: 0.9,
+              y: 40,
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              y: 0,
+            }}
+            exit={{
+              opacity: 0,
+              scale: 0.95,
+              y: 20,
+            }}
+            className="fixed bottom-24 right-6 z-[9999] w-[430px] h-[620px] rounded-3xl border border-white/10 bg-slate-900/90 backdrop-blur-2xl shadow-2xl shadow-cyan-950/30 overflow-hidden flex flex-col"
           >
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
-              <span className="font-semibold text-sm text-white">Putra (AI)</span>
-            </div>
-            <button 
-              onClick={() => setIsOpen(false)} 
-              className="text-gray-400 hover:text-white transition-colors p-1"
-            >✕</button>
-          </div>
-          
-          {/* Chat Body */}
-          <div ref={scrollRef} className="flex-1 p-4 overflow-y-auto space-y-4">
-            {messages.map((msg, index) => (
-              <motion.div 
-                key={index} 
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
-                <div className={`max-w-[85%] p-3 px-4 rounded-2xl text-sm shadow-sm ${
-                  msg.role === 'user' 
-                  ? 'bg-cyan-600 text-white rounded-br-none' 
-                  : 'bg-white/5 text-gray-200 border border-white/5 rounded-bl-none'
-                }`}>
-                  {msg.text}
-                </div>
-              </motion.div>
-            ))}
-            {isLoading && <div className="text-xs text-gray-500 animate-pulse px-2">Putra AI sedang mengetik...</div>}
-          </div>
-
-          {/* Footer Input */}
-          <form onSubmit={handleSendMessage} className="p-4 border-t border-white/5 bg-black/20 flex gap-2">
-            <input 
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Ketik pesan..."
-              className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm outline-none focus:border-cyan-500/50 transition-all"
-            />
-            <button 
-              type="submit"
-              disabled={isLoading || !input.trim()}
-              className="bg-cyan-500 hover:bg-cyan-600 disabled:opacity-50 text-white px-4 rounded-xl font-medium text-sm transition-all"
+            {/* HEADER */}
+            <div
+              onPointerDown={(e) => dragControls.start(e)}
+              className="cursor-grab active:cursor-grabbing border-b border-white/10 bg-white/5 px-5 py-4 flex items-center justify-between select-none"
             >
-              Send
-            </button>
-          </form>
-        </motion.div>
-      )}
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <div className="h-3 w-3 rounded-full bg-emerald-400"></div>
+                  <div className="absolute inset-0 animate-ping rounded-full bg-emerald-400 opacity-50"></div>
+                </div>
 
-      {/* Bubble Button */}
-      <button 
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 bg-cyan-500 hover:bg-cyan-600 rounded-full shadow-lg shadow-cyan-500/30 transition-all duration-300 flex items-center justify-center text-white text-xl z-50 hover:scale-105 active:scale-95"
+                <div>
+                  <p className="font-semibold text-white">
+                    Putra AI
+                  </p>
+
+                  <p className="text-xs text-slate-400">
+                    Backend Developer Assistant
+                  </p>
+                </div>
+              </div>
+
+              <button
+                onClick={() => setIsOpen(false)}
+                className="rounded-lg p-2 text-slate-400 transition hover:bg-white/10 hover:text-white"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* BODY */}
+
+            <div
+              ref={scrollRef}
+              className="flex-1 space-y-4 overflow-y-auto p-5"
+            >
+              {messages.map((msg, index) => (
+                <motion.div
+                  key={index}
+                  initial={{
+                    opacity: 0,
+                    y: 12,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  className={`flex ${
+                    msg.role === 'user'
+                      ? 'justify-end'
+                      : 'justify-start'
+                  }`}
+                >
+                  <div
+                    className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
+                      msg.role === 'user'
+                        ? 'rounded-br-md bg-cyan-500 text-white'
+                        : 'rounded-bl-md border border-white/10 bg-white/5 text-slate-200'
+                    }`}
+                  >
+                    {msg.text}
+                  </div>
+                </motion.div>
+              ))}
+
+              {isLoading && (
+                <div className="text-sm text-slate-400 animate-pulse">
+                  Putra AI is typing...
+                </div>
+              )}
+            </div>
+
+            {/* INPUT */}
+
+            <form
+              onSubmit={handleSendMessage}
+              className="border-t border-white/10 bg-black/20 p-4"
+            >
+              <div className="flex gap-2">
+                <input
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Ask anything..."
+                  className="flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-cyan-500"
+                />
+
+                <button
+                  disabled={!input.trim() || isLoading}
+                  className="rounded-xl bg-cyan-500 px-5 font-medium text-white transition hover:bg-cyan-600 disabled:opacity-50"
+                >
+                  Send
+                </button>
+              </div>
+            </form>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* FLOATING BUTTON */}
+
+      <motion.button
+        whileHover={{
+          scale: 1.08,
+        }}
+        whileTap={{
+          scale: 0.95,
+        }}
+        onClick={() => setIsOpen((prev) => !prev)}
+        className="fixed bottom-6 right-6 z-[9999] flex h-16 w-16 items-center justify-center rounded-full bg-cyan-500 text-white shadow-2xl shadow-cyan-500/40"
       >
-        {isOpen ? '✕' : 'AI'}
-      </button>
-    </div>
+        {isOpen ? <X size={26} /> : <MessageCircle size={28} />}
+      </motion.button>
+    </>
   );
 }
