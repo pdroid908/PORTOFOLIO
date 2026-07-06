@@ -305,10 +305,10 @@ export default function Portfolio() {
 
             <div className="mt-8 flex flex-wrap gap-3">
               <a
-                href="#projects"
+                href="#web"
                 className="rounded-full bg-slate-950 px-5 py-2.5 font-mono text-xs font-medium text-white transition hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/60"
               >
-                View projects →
+                View live projects →
               </a>
               <a
                 href="https://wa.me/6281328343908"
