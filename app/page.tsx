@@ -25,18 +25,52 @@ const statusFeed = [
 ];
 
 const skills = {
-  languages: ["Go", "TypeScript", "JavaScript", "Python", "SQL"],
+  languages: [
+    "Go",
+    "PHP",
+    "TypeScript",
+    "JavaScript",
+    "Python",
+    "SQL",
+  ],
+
   backend: [
     "Gin",
+    "Laravel",
     "REST APIs",
-    "JWT / OAuth2",
-    "RBAC",
+    "JWT",
+    "OAuth 2.0",
+    "Session Authentication",
     "Middleware",
-    "Clean Architecture",
+    "MVC",
+    "Eloquent ORM",
+    "Database Relationships",
+    
   ],
-  frontend: ["React", "Next.js", "Tailwind CSS", "Redux"],
-  database: ["PostgreSQL", "Redis", "MongoDB"],
-  tools: ["Docker", "Git", "Nginx", "Postman", "Linux", "CI/CD"],
+
+  frontend: [
+    "Blade",
+    "React",
+    "Next.js",
+    "Tailwind CSS",
+    
+  ],
+
+  database: [
+    "PostgreSQL",
+    "Mysql",
+    "Redis",
+    "MongoDB",
+  ],
+
+  tools: [
+    "Docker",
+    "Git",
+    "Nginx",
+    "Postman",
+    "Linux",
+    "CI/CD",
+  ],
 };
 
 const projects = [
@@ -44,6 +78,12 @@ const projects = [
     title: "Enterprise Authentication Platform",
     stack: "Go · Gin · PostgreSQL · JWT · OAuth2 · RBAC",
     desc: "Production-grade auth service with access & refresh tokens, HTTP-only cookie sessions, Google OAuth, email verification, password reset and middleware-based authorization.",
+    status: "DEPLOYED",
+  },
+  {
+    title: "Social Media Platform",
+    stack: "Laravel · PHP · PostgreSQL · Blade · Session Auth · Eloquent ORM",
+    desc: "Production-oriented social media application featuring secure session-based authentication, middleware authorization, public feed, user-generated posts, synchronized like/unlike system, and relational database modeling with Eloquent ORM.",
     status: "DEPLOYED",
   },
   {
@@ -297,10 +337,11 @@ export default function Portfolio() {
             </h1>
 
             <p className="mt-5 max-w-xl text-sm leading-7 text-slate-800 sm:mt-6 sm:text-base">
-  Im a Backend Developer focused on building secure, scalable, and
-  high-performance applications. I specialize in Go, TypeScript, Next.js,
-  PostgreSQL, Redis, and Docker, creating reliable REST APIs and backend
-  systems with clean architecture and production-ready practices.
+  Building secure authentication systems with JWT, session cookies, OAuth 2.0,
+  and middleware using Go and Laravel. Developing RESTful APIs, relational
+  database architectures, concurrent data processing, and scalable backend
+  services with PostgreSQL, Redis, Docker, and TypeScript while following clean
+  architecture and production-oriented engineering practices.
 </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
