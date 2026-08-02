@@ -22,6 +22,7 @@
     "validator": "^13.15.35"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.13.16",
     "@tailwindcss/postcss": "^4",
     "@types/he": "^1.2.3",
     "@types/node": "^20",
