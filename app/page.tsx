@@ -323,7 +323,7 @@ export default function Portfolio() {
             </Eyebrow>
 
             <h1 className="font-display mt-3 text-3xl font-bold leading-tight tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
-              Putra NUR Rohman
+              PUTRA NUR ROHMAN
             </h1>
 
             <p className="mt-4 max-w-xl text-sm leading-relaxed text-slate-800 sm:mt-6 sm:text-base sm:leading-7">
