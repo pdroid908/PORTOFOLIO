@@ -96,7 +96,7 @@ const deployments = [
   {
     name: "MultiRole Scheduler System (pro)",
     route: "/goojadwal",
-    href: "https://goojadwal.up.railway.app/",
+    href: "https://goojadwal.vercel.app/",
     desc: "Multi-role online booking platform featuring slot availability management and conflict prevention.",
   },
   {
