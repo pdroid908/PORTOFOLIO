@@ -50,7 +50,7 @@ const skills = {
 const projects = [
   {
     title: "MultiRole Scheduler System",
-    stack: "Go · Gin · PostgreSQL · JWT · RBAC · Clean Architecture",
+    stack: "Go · Gin · PostgreSQL · JWT ·Redis · RBAC · Clean Architecture",
     desc: "Production-oriented appointment & event scheduling platform featuring role-based access control (Admin, Provider, Customer), slot availability management, automated status tracking, and secure JWT middleware built with Clean Architecture.",
     status: "DEPLOYED",
   },
@@ -61,65 +61,60 @@ const projects = [
     status: "DEPLOYED",
   },
   {
+  title: "Impact Metrics Admin & Dashboard",
+  stack: "PHP · Laravel · Filament · PostgreSQL · TailwindCSS · Clean Architecture",
+  desc: "Production-oriented impact metrics platform featuring Filament-based resource management (ImpactMetricResource, Values & Series relation managers), secure policy authorization, and optimized public API endpoints for dynamic data visualization.",
+  status: "DEPLOYED",
+},
+  {
     title: "Enterprise Authentication Platform",
     stack: "Go · Gin · PostgreSQL · JWT · OAuth2 · RBAC",
     desc: "Production-grade auth service with access & refresh tokens, HTTP-only cookie sessions, Google OAuth, email verification, password reset and middleware-based authorization.",
     status: "DEPLOYED",
   },
-  {
-    title: "Social Media Platform",
-    stack: "Laravel · PHP · PostgreSQL · Blade · Session Auth · Eloquent ORM",
-    desc: "Production-oriented social media application featuring secure session-based authentication, middleware authorization, public feed, user-generated posts, synchronized like/unlike system, and relational database modeling with Eloquent ORM.",
-    status: "DEPLOYED",
-  },
-  {
-    title: "Big Data Scraper Platform",
-    stack: "Go · Concurrency · Redis · Queues",
-    desc: "High-throughput scraping pipeline processing 100–1000+ sources concurrently for analytics and structured data extraction.",
-    status: "DEPLOYED",
-  },
-  {
-    title: "AI-Powered Tooling Suite",
-    stack: "Next.js · Tailwind CSS · Edge Functions",
-    desc: "A set of client-facing tools — security scanning, media conversion and text processing — shipped as fast, edge-deployed micro apps.",
-    status: "LIVE",
-  },
+
 ];
 
 const deployments = [
   {
     name: "Fintech Dompet Diri (pro)",
-    route: "/fintech",
+    route: "Go · Gin · PostgreSQL · Redis · Vite",
     href: "https://dompetdiri.onrender.com/",
     desc: "Fintech wallet platform featuring transaction ledger, account mutation, and real-time dashboard.",
   },
   {
     name: "MultiRole Scheduler System (pro)",
-    route: "/goojadwal",
+    route: "Go · Gin · PostgreSQL · Redis · Vite",
     href: "https://goojadwal.vercel.app/",
     desc: "Multi-role online booking platform featuring slot availability management and conflict prevention.",
   },
   {
     name: "Air Quality Monitor",
-    route: "/air-quality",
+    route: "Go · HTML · Vercel",
     href: "https://kondisi-udara.vercel.app/",
     desc: "Real-time air quality tracking platform powered by Go backend services.",
   },
   {
+    name: "SentinelPass",
+    route: "Go · HTML · Vercel",
+    href: "https://sentinel-pass-six.vercel.app/",
+    desc: "Web-based security application built with Go and React to check password breaches securely using the k-Anonymity privacy approach.",
+  },
+  {
     name: "Web Scanner",
-    route: "/security",
+    route: "Next.js · React · TypeScript · API",
     href: "https://artup.pages.dev/Security",
     desc: "Detects phishing links and malicious websites in real time.",
   },
   {
     name: "Image Converter",
-    route: "/converter",
+    route: "Next.js · React · TypeScript · API",
     href: "https://converter-artup.pages.dev/",
     desc: "Fast image conversion and optimization across multiple formats.",
   },
   {
     name: "AI Humanizer",
-    route: "/humanize",
+    route: "python · Next.js · React · Api",
     href: "https://artup.pages.dev/humanize",
     desc: "Transforms AI-generated text into natural, human-like writing.",
   },
@@ -153,7 +148,7 @@ function SkillGroup({
 }) {
   return (
     <div
-      className={`rounded-2xl border border-slate-200/90 bg-white/90 p-5 shadow-xs backdrop-blur-md transition-all duration-300 hover:border-sky-300 hover:shadow-md ${className}`}
+      className={`rounded-2xl border border-slate-200/90 bg-slate-50/80 p-5 shadow-xs backdrop-blur-md transition-all duration-300 hover:border-sky-300 hover:shadow-md ${className}`}
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
@@ -176,7 +171,7 @@ function SkillGroup({
               className={`rounded-lg border px-3 py-1 font-mono text-xs font-medium transition-all ${
                 isHighlight
                   ? "border-sky-300 bg-sky-50 text-sky-800 shadow-xs hover:border-sky-400 hover:bg-sky-100"
-                  : "border-slate-200/80 bg-slate-50/80 text-slate-700 hover:border-slate-300 hover:bg-white hover:text-slate-900"
+                  : "border-slate-200/80 bg-slate-50/80 text-slate-900 hover:border-slate-300 hover:bg-white hover:text-slate-900"
               }`}
             >
               {item}
@@ -198,7 +193,7 @@ export default function Portfolio() {
   return (
     <main
       id="top"
-      className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(14,165,233,0.15),_transparent_40%),linear-gradient(135deg,_#f8fafc_0%,_#f2f6fb_45%,_#eef3f8_100%)] text-slate-800 selection:bg-sky-500/25 selection:text-slate-900"
+      className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(14,165,233,0.08),_transparent_40%),linear-gradient(135deg,_#f1f5f9_0%,_#e2e8f0_50%,_#cbd5e1_100%)] text-slate-900 selection:bg-sky-500/20 selection:text-slate-900"
     >
       <style>{`
         :root { --font-display: 'Space Grotesk', sans-serif; }
@@ -241,7 +236,7 @@ export default function Portfolio() {
               <a
                 key={item.name}
                 href={item.href}
-                className="rounded-full px-3.5 py-1.5 font-mono text-xs text-slate-600 transition hover:bg-slate-100 hover:text-sky-700"
+                className="rounded-full px-3.5 py-1.5 font-mono text-xs text-slate-900 font-medium transition hover:bg-slate-100 hover:text-sky-800 font-bold"
               >
                 {item.name}
               </a>
@@ -287,7 +282,7 @@ export default function Portfolio() {
                 key={item.name}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="border-l-2 border-transparent px-4 py-2.5 font-mono text-sm text-slate-700 hover:border-sky-500 hover:bg-slate-50"
+                className="border-l-2 border-transparent px-4 py-2.5 font-mono text-sm text-slate-900 hover:border-sky-500 hover:bg-slate-50"
               >
                 {item.name}
               </a>
@@ -301,7 +296,7 @@ export default function Portfolio() {
             {[...statusFeed, ...statusFeed, ...statusFeed].map((s, i) => (
               <span
                 key={i}
-                className="mx-4 flex items-center gap-2 font-mono text-[10px] tracking-wider text-slate-600"
+                className="mx-4 flex items-center gap-2 font-mono text-[10px] tracking-wider text-slate-900 font-medium"
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                 {s}
@@ -349,7 +344,7 @@ export default function Portfolio() {
               </a>
               <a
                 href="https://wa.me/6281328343908"
-                className="rounded-full border border-slate-300 bg-white/80 backdrop-blur-sm px-5 py-2.5 font-mono text-xs text-slate-700 transition hover:border-slate-400"
+                className="rounded-full border border-slate-300 bg-white/80 backdrop-blur-sm px-5 py-2.5 font-mono text-xs text-slate-900 transition hover:border-slate-400"
               >
                 Get in touch (WA)
               </a>
@@ -377,10 +372,10 @@ export default function Portfolio() {
           </div>
 
           {/* ------------------ BAGIAN HERO KANAN ------------------ */}
-          <div className="rounded-2xl border border-slate-300/80 bg-slate-100/90 backdrop-blur-sm p-1 shadow-lg shadow-slate-900/5">
-            <div className="rounded-xl border border-slate-200 bg-white overflow-hidden">
+          <div className="rounded-2xl border border-slate-300/80 bg-slate-100/70 backdrop-blur-sm p-1 shadow-lg shadow-slate-900/5">
+            <div className="rounded-xl border border-slate-200 bg-slate-50 overflow-hidden">
               {/* Window Top Bar */}
-              <div className="flex items-center gap-1.5 border-b border-slate-200 bg-slate-100/90 px-4 py-2.5">
+              <div className="flex items-center gap-1.5 border-b border-slate-200 bg-slate-100/50 px-4 py-2.5">
                 <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
                 <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
                 <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/80" />
@@ -391,61 +386,61 @@ export default function Portfolio() {
 
               {/* Tampilan JSON Code Window */}
               <div className="p-4 sm:p-5 overflow-x-auto max-w-full">
-                <pre className="font-mono text-[11px] leading-5 text-slate-700 sm:text-[13px] sm:leading-6 whitespace-pre-wrap sm:whitespace-pre">
+                <pre className="font-mono text-[11px] leading-5 text-slate-900 sm:text-[13px] sm:leading-6 whitespace-pre-wrap sm:whitespace-pre">
                   {`{\n  `}
-                  <span className="text-sky-700">{'"name"'}</span>
+                  <span className="text-sky-800 font-bold">{'"name"'}</span>
                   {`: `}
-                  <span className="text-emerald-700">{'"Putra Rohman"'}</span>
+                  <span className="text-emerald-800 font-bold">{'"Putra Rohman"'}</span>
                   {`,\n  `}
-                  <span className="text-sky-700">{'"role"'}</span>
+                  <span className="text-sky-800 font-bold">{'"role"'}</span>
                   {`: `}
-                  <span className="text-emerald-700">
+                  <span className="text-emerald-800 font-bold">
                     {'"High-Performance Go / Full-Stack Developer"'}
                   </span>
                   {`,\n  `}
-                  <span className="text-sky-700">{'"focus"'}</span>
+                  <span className="text-sky-800 font-bold">{'"focus"'}</span>
                   {`: [\n    `}
-                  <span className="text-emerald-700">
+                  <span className="text-emerald-800 font-bold">
                     {'"high_concurrency"'}
                   </span>
                   {`,\n    `}
-                  <span className="text-emerald-700">
+                  <span className="text-emerald-800 font-bold">
                     {'"low_latency_apis"'}
                   </span>
                   {`,\n    `}
-                  <span className="text-emerald-700">{'"redis_caching"'}</span>
+                  <span className="text-emerald-800 font-bold">{'"redis_caching"'}</span>
                   {`,\n    `}
-                  <span className="text-emerald-700">{'"rate_limiting"'}</span>
+                  <span className="text-emerald-800 font-bold">{'"rate_limiting"'}</span>
                   {`\n  ],\n  `}
-                  <span className="text-sky-700">{'"stack"'}</span>
+                  <span className="text-sky-800 font-bold">{'"stack"'}</span>
                   {`: {\n    `}
-                  <span className="text-sky-700">{'"backend"'}</span>
+                  <span className="text-sky-800 font-bold">{'"backend"'}</span>
                   {`: `}
-                  <span className="text-emerald-700">
+                  <span className="text-emerald-800 font-bold">
                     {'"Go (Gin) / Custom Middleware"'}
                   </span>
                   {`,\n    `}
-                  <span className="text-sky-700">{'"frontend"'}</span>
+                  <span className="text-sky-800 font-bold">{'"frontend"'}</span>
                   {`: `}
-                  <span className="text-emerald-700">
+                  <span className="text-emerald-800 font-bold">
                     {'"Next.js / Vite / React"'}
                   </span>
                   {`,\n    `}
-                  <span className="text-sky-700">{'"database"'}</span>
+                  <span className="text-sky-800 font-bold">{'"database"'}</span>
                   {`: `}
-                  <span className="text-emerald-700">
+                  <span className="text-emerald-800 font-bold">
                     {'"PostgreSQL (Relational) / Redis"'}
                   </span>
                   {`,\n    `}
-                  <span className="text-sky-700">{'"infra"'}</span>
+                  <span className="text-sky-800 font-bold">{'"infra"'}</span>
                   {`: `}
-                  <span className="text-emerald-700">
+                  <span className="text-emerald-800 font-bold">
                     {'"Docker / Nginx / Linux"'}
                   </span>
                   {`\n  },\n  `}
-                  <span className="text-sky-700">{'"status"'}</span>
+                  <span className="text-sky-800 font-bold">{'"status"'}</span>
                   {`: `}
-                  <span className="text-emerald-700">
+                  <span className="text-emerald-800 font-bold">
                     {'"available_for_hire"'}
                   </span>
                   {`\n}`}
@@ -525,21 +520,21 @@ export default function Portfolio() {
             {projects.map((project) => (
               <div
                 key={project.title}
-                className="rounded-2xl border border-slate-200/80 bg-white/90 backdrop-blur-sm p-4 shadow-sm transition hover:border-sky-300 sm:p-6"
+                className="rounded-2xl border border-slate-200/80 bg-slate-50/80 backdrop-blur-sm p-4 shadow-sm transition hover:border-sky-300 sm:p-6"
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <h3 className="font-display text-base font-bold text-slate-900 sm:text-xl">
                     {project.title}
                   </h3>
-                  <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-emerald-700">
+                  <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-emerald-800 font-bold">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                     {project.status}
                   </span>
                 </div>
-                <p className="mt-1 font-mono text-[11px] text-sky-700 sm:text-xs">
+                <p className="mt-1 font-mono text-[11px] text-sky-800 font-bold sm:text-xs">
                   {project.stack}
                 </p>
-                <p className="mt-3 text-xs leading-relaxed text-slate-600 sm:text-sm sm:leading-6">
+                <p className="mt-3 text-xs leading-relaxed text-slate-900 font-medium sm:text-sm sm:leading-6">
                   {project.desc}
                 </p>
               </div>
@@ -565,20 +560,20 @@ export default function Portfolio() {
                 href={d.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group rounded-2xl border border-slate-300/80 bg-slate-100/80 p-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-white hover:border-sky-500 hover:shadow-md sm:p-5"
+                className="group rounded-2xl border border-slate-300/80 bg-slate-50/80 p-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-white hover:border-sky-500 hover:shadow-md sm:p-5"
               >
                 <div className="flex items-center justify-between">
-                  <h3 className="font-display text-sm font-bold text-slate-900 group-hover:text-sky-700 sm:text-base">
+                  <h3 className="font-display text-sm font-bold text-slate-900 group-hover:text-sky-800 font-bold sm:text-base">
                     {d.name}
                   </h3>
                   <span className="flex items-center gap-1.5">
                     <span className="h-2 w-2 shrink-0 rounded-full bg-emerald-500 animate-pulse" />
                   </span>
                 </div>
-                <p className="mt-1 font-mono text-[10px] font-medium text-sky-700 sm:text-[11px]">
+                <p className="mt-1 font-mono text-[10px] font-medium text-sky-800 font-bold sm:text-[11px]">
                   {d.route}
                 </p>
-                <p className="mt-2.5 text-xs leading-relaxed text-slate-600 sm:text-sm">
+                <p className="mt-2.5 text-xs leading-relaxed text-slate-900 font-medium sm:text-sm">
                   {d.desc}
                 </p>
               </a>
